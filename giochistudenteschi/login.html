@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accedi ai giochi studenteschi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+<div class="flex align-middle justify-center mt-[70px] p-8">
+  <form method="POST" action="login.php" class="p-2 shadow-2xl shadow-indigo-800 w-[400px] h-[300px] border-4 border-blue-950 bg-sky-300 rounded-xl justify-center">
+    <h1 class="text-3xl font-bold font-serif justify-center text-center mt-2">Accedi</h1>
+    <div id="utente" class="grid ml-1">
+    <label for="username">Username:</label>
+    <input class=" rounded-sm" type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input class="rounded-sm" type="password" id="password" name="password" required>
+    <input type="submit" value="Accedi" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-6 hover:bg-blue-800">
+    <p>Non hai un account? <a class="text-blue-500 hover:underline" href="index.html">Registrati</a></p>
+    </div>
+    </form>
+</div>
+    
+
+</body>

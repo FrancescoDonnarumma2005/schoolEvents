@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiungi Manifestazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+        <div class="flex align-middle justify-center mt-[70px] p-8">
+          <form method="POST" action="gestioneManifestazione.php" class="p-2 shadow-2xl shadow-indigo-800 w-[400px] h-[400px] border-4 border-blue-950 bg-sky-300 rounded-xl justify-center">
+            <h1 class="text-3xl font-bold font-serif justify-center text-center mt-2">Aggiungi</h1>
+            <div id="manifestazione" class="grid ml-1">
+            <label for="titolo">Titolo:</label>
+            <input class=" rounded-sm" type="text" id="titolo" name="titolo" required>
+            <label for="descrizione">Descrizione:</label>
+            <input class="rounded-sm" type="text" id="descrizione" name="descrizione" required>
+            <label for="luogo">Luogo:</label>
+            <input class=" rounded-sm" type="text" id="luogo" name="luogo" required>
+            <label for="data_evento">Data Evento</label>
+            <input class=" rounded-sm" type="date" id="data_evento" name="data_evento">
+            <input type="submit" value="Aggiungi" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-6 hover:bg-blue-800">
+            </div>
+            </form>
+            </div>
+</body>
+
+</html>

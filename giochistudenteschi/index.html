@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrati ai giochi studenteschi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+<div class="flex align-middle justify-center mt-10 p-8" >
+  <form method="POST" action="signin.php" class="p-2 w-[400px] h-[600px] border-4 border-blue-950 bg-sky-300 rounded-xl justify-center shadow-2xl shadow-indigo-800">
+    <h1 class="text-3xl font-bold font-serif justify-center text-center mt-2">Registrati</h1>
+    <div id="utente" class="grid ml-1">
+    <label for="username">Username:</label>
+    <input class=" rounded-sm" type="text" id="username" name="username" required max="20">
+    <label for="password">Password:</label>
+    <input class=" rounded-sm" type="password" id="password" name="password" required>
+    <label for="nome">nome</label>
+    <input class=" rounded-sm" type="text" id="nome" name="nome" required max="30">
+    <label for="cognome">cognome</label>
+    <input class=" rounded-sm" type="text" id="cognome" name="cognome" required max="20">
+    <label for="codIstituto">Codice Istituto:</label>
+    <input class=" rounded-sm" type="text" id="codIstituto" name="codIstituto" required max="10" list="istituti">
+    <datalist id="istituti">
+    
+
+    </datalist>
+    </div>
+<div class="ml-1" id="Studente" style="display: none;">
+    <label for="classe">Classe:</label> 
+    <input class=" rounded-sm" type="text" id="classe" name="classe" max="2">
+    <span>Format di esempio:4C</span>
+    <label for="data_nascita">Data Nascita</label>
+    <input class=" rounded-sm" type="date" id="data_nascita" name="data_nascita">
+</div>
+<div class="ml-1">
+    <label for="isStud">Sono uno Studente</label>
+    <input class=" rounded-sm" type="checkbox" name="isStud" id="isStud" checked="false">
+</div>
+<div class="grid">
+<input type="submit" value="Registrati" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-6 hover:bg-blue-800">
+<p>Hai già un account? <a class="text-blue-500 hover:underline" href="login.html">Accedi</a></p>
+</div>
+  </form>
+</div>
+
+
+
+  <script>
+        const studCheckBox= document.getElementById("isStud");
+        studCheckBox.addEventListener("click", checkBox);
+        const datalist = document.getElementById("istituti");
+        getIstituti();
+
+    function checkBox() {
+        if(studCheckBox.checked==true){
+            document.getElementById("Studente").style.display = "grid";
+        } else{
+            document.getElementById("Studente").style.display = "none";
+        }
+    }
+    function getIstituti(){
+        fetch('istituti.php',{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+
+
+    }).then(response=>response.json()).then(data=>{
+      console.log(data.text);
+      var option;
+      data.forEach((item,index)=>{
+      option=document.createElement("option");
+      option.value=item.id;
+      option.innerHTML=item.denom+' '+item.indirizzo;
+      datalist.appendChild(option);
+        
+      });
+      
+      
+
+
+    })
+    
+
+
+    }
+    
+  
+    
+</script>
+</body>
+</html>

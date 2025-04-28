@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Privata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+    <div class="bg-sky-400 h-[200px] border-b-2 border-slate-200 w-m p-10 flex flex-col items-center justify-center">
+    <div class="flex items-center mb-7 pt-6">
+    <img src="userlogin.png" class="w-[100px] h-[100px]">
+    <h1 class="text-3xl font-bold align-middle" id="utente">Francesco<br>Donnarumma</h1>
+    </div>
+   <p id="tipoAccount" class="text-center align-text-bottom">Studente</p>
+    </div>
+  
+    <p class="flex flex-col items-center font-sans font-semibold mt-10">MANIFESTAZIONI</p>
+ 
+    <div id="manifestazioni" class="flex flex-col gap-y-10 mt-10 pl-8 pr-8 mb-10">
+        <!--
+    <div class="group outline  outline-blue-950 rounded-3xl shadow-2xl  shadow-indigo-700 bg-slate-100 h-[200px] lg:h-[100px] border-b-2 border-slate-200 w-m p-10 hover:h-[500px] transition-all duration-700 ease-in-out overflow-hidden " >
+    <p class=" text-1xl font-semibold font-sans flex justify-start">giornata nazionale contro la violenza sulle donne - Prof:Angelo Manganiello - Istituto: ITI E. Barsanti - Luogo: Via nazionale delle puglie 18, Pomigliano D'arco</p>
+    <p id="descrizione" class="flex justify-start opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam scelerisque interdum felis vitae bibendum. Maecenas lobortis aliquet libero, a porta odio lobortis sit amet. Vivamus et nulla in erat faucibus lobortis. Maecenas tempor</p>
+    <p id="data" class="flex justify-end opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">inizia il 07/12/2005</p>
+    <input type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Partecipa">
+    </div>
+    <div class="group outline  outline-blue-950 rounded-3xl shadow-2xl  shadow-indigo-700 bg-slate-100 h-[100px] border-b-2 border-slate-200 w-m p-10 hover:h-[500px] transition-all duration-700 ease-in-out overflow-hidden " >
+        <p class=" text-1xl font-semibold font-sans flex justify-start">TITOLO MANIF - Prof:Nome Cognome</p></p>
+        <p class="flex justify-start opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam scelerisque interdum felis vitae bibendum. Maecenas lobortis aliquet libero, a porta odio lobortis sit amet. Vivamus et nulla in erat faucibus lobortis. Maecenas tempor</p>
+        <p class="flex justify-end opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">inizia il 07/12/2005</p>
+        <div id=studButton style="display: none;">
+        <input id="partecipa" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Partecipa">
+        </div>
+        <div id="profButton" style="display: none;" >
+        <input id="Elimina" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Elimina">
+        <input id="Modifica" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Modifica">
+        </div>
+    </div>
+         -->
+    </div>
+    <div id="add" class="absolute right-0 mr-10 mb=10" style="display: none;">
+    <input type="button"  onclick="add()" value="Aggiungi" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2  mb-10 hover:bg-blue-800 relative items-center ease-linear " >
+    </div>
+
+
+    <script>
+    const classNameManifestazione = "group outline  outline-blue-950 rounded-3xl shadow-2xl  shadow-indigo-700 bg-slate-100 h-[200px] lg:h-[100px] border-b-2 border-slate-200 w-m p-10 hover:h-[500px] transition-all duration-700 ease-in-out overflow-hidden ";
+    boot();
+
+    function boot(){
+        
+
+    fetch('gestioneManifestazione.php',
+    {method:'GET'}
+    ).then(response => response.json())
+    .then(data=>{
+    console.log(data);
+    for(let i=0; i<data.length; i++)
+    {
+        let titoloManif = data[i]['titoloManif'];
+        let nomeProf = data[i]['nomeProf'];
+        let nomeIstituto = data[i]['nomeIstituto'];
+        let luogo = data[i]['luogo'];
+        let descrizione=data[i]['descrizione'];
+        let dataInizio = data[i]['dataInizio'];
+        titoloManif = titoloManif.replace(/'/g, '&#39;');
+        nomeProf = nomeProf.replace(/'/g, '&#39;');
+        nomeIstituto = nomeIstituto.replace(/'/g, '&#39;');
+        luogo = luogo.replace(/\//g, '');
+        dataInizio = dataInizio.replace(/'/g, '&#39;');
+        descrizione=descrizione.replace(/'/g, '&#39;');
+        console.log(data[i]);
+        var divBox = document.createElement('div');
+        const divManifestazioni=document.getElementById("manifestazioni");
+        const par1=`<p class=" text-1xl font-semibold font-sans flex justify-start"> ${titoloManif} - Prof: ${nomeProf} - Istituto: ${nomeIstituto} - Luogo: ${luogo}</p>`
+        const par2=`<p id="descrizione" class="flex justify-start opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">${descrizione}</p>`
+        const par3=`<p class="flex justify-end opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 ">${dataInizio}</p>`
+        const par4=`<div id=studButton style="display: none;">
+        <input id="partecipa" onClick="partecipa(this)" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Partecipa">
+        </div>
+        <div id="profButton" style="display: none;" >
+        <input id="Elimina" onclick="deleteManif(this)" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Elimina">
+        <input id="Modifica" onclick="modify(this)" type="button" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-10 hover:bg-blue-800" value="Modifica">
+        </div>`
+        divBox.className = classNameManifestazione;
+        divBox.id=data[i]['codiceManif'];
+        divManifestazioni.appendChild(divBox);
+        document.getElementById(divBox.id).innerHTML=`${par1}${par2}${par3}${par4}`;
+        divManifestazioni.appendChild(divBox);
+    }
+    }).then(()=> getUtente());
+}
+    
+    function getUtente(){
+        fetch('getUtente.php',
+    {method:'GET'}
+    ).then(response => response.json())
+    .then(data=>{
+        console.log(data)
+        const utente = document.getElementById('utente');
+        const tipoAccount=document.getElementById("tipoAccount");
+        const acceptButton=document.getElementById("accept");
+        utente.innerHTML = data["nome"] + "</br>" + data["cognome"];
+        if(data.hasOwnProperty("codStud")){
+        tipoAccount.innerHTML = `Studente - ${data['denominazione']}`;
+        var studButtons = document.querySelectorAll('[id="studButton"]');
+        studButtons.forEach(button => {
+            button.style.display = "block";
+        })
+        getIscrizioniStud();
+        } else{
+            tipoAccount.innerHTML = `Docente - ${data['denominazione']}`;
+            var profButtons= document.querySelectorAll('[id="profButton"]');
+            profButtons.forEach(button => {
+                button.style.display = "block";
+            });
+            const addButton=document.getElementById("add");
+            addButton.style.display="block";
+        }
+    })
+    }
+    function add(){
+    window.location.href = "CreaManifestazione.html";
+
+    }
+    function modify(element){
+    const parentDiv1=element.parentNode;
+    const parentDiv2=parentDiv1.parentNode;
+    console.log(parentDiv2.id);
+    window.location.href = "ModificaManifestazione.html?dato="+encodeURIComponent(parentDiv2.id);
+        }
+
+    function deleteManif(element){
+    const parentDiv1=element.parentNode;
+    const parentDiv2=parentDiv1.parentNode;
+    var form=new FormData();
+    form.append("id",parentDiv2.id);
+    console.log(parentDiv2.id);
+    fetch("deleteManif.php", {
+        method: "POST",
+        body:form
+    }).then(response => response.text()).then(data => {
+        alert(data);
+
+    })
+    }
+    function partecipa(element){
+       
+        const parentDiv1=element.parentNode;
+        const parentDiv2=parentDiv1.parentNode;
+        var form=new FormData();
+        form.append("idManif",parentDiv2.id);   
+        if(element.value=="Partecipa"){
+        fetch("iscrizione.php", {
+            method: "POST",
+            body:form
+
+        }).then(response => response.text()).then(data => {
+            alert(data);
+            console.log(data);
+            if(data=="iscrizione effettuata con successo"){
+                element.value="Annulla";
+            }
+        });
+        }
+        else if(element.value=="Annulla"){
+         fetch("deleteIscrizione.php", {
+            method: "POST",
+            body:form
+
+        }).then(response => response.text()).then(data => {
+            alert(data);
+            if(data=="Iscrizione eliminata con successo"){
+                element.value="Partecipa";
+            }
+        })
+    }
+}
+function getIscrizioniStud(){
+//TODO prendere tutte le manifestazioni a cui è iscritto l'utente e cambiare il valore del bottone su "Annulla" se è iscritto
+fetch("iscrizione.php", {method:"GET"})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+    if(data.length>0){
+    const elementiComuni = document.getElementsByClassName(classNameManifestazione);
+    for(let i=0; i<elementiComuni.length;i++){
+    const manifestazioneId=elementiComuni[i].id;
+    if(data[i]["codiceManif"]==manifestazioneId){
+    var studButton= elementiComuni[i].querySelector('#studButton, #Partecipa');
+    buttonPartecipa=studButton.children[0];
+    console.log(buttonPartecipa);
+    buttonPartecipa.value="Annulla";
+    console.log(buttonPartecipa);
+    console.log(buttonPartecipa.value);
+    }
+    }
+}
+ 
+    });
+}
+ 
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

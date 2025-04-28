@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiungi Manifestazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+        <div class="flex align-middle justify-center mt-[70px] p-8">
+          <form method="POST" action="gestioneManifestazione.php" class="p-2 shadow-2xl shadow-indigo-800 w-[400px] h-[400px] border-4 border-blue-950 bg-sky-300 rounded-xl justify-center">
+            <h1 class="text-3xl font-bold font-serif justify-center text-center mt-2">Modifica</h1>
+            <div id="manifestazione" class="grid ml-1">
+            <label for="titolo">Titolo:</label>
+            <input class=" rounded-sm" type="text" id="titolo" name="titolo" required>
+            <label for="descrizione">Descrizione:</label>
+            <input class="rounded-sm" type="text" id="descrizione" name="descrizione" required>
+            <label for="luogo">Luogo:</label>
+            <input class=" rounded-sm" type="text" id="luogo" name="luogo" required>
+            <label for="data_evento">Data Evento</label>
+            <input class=" rounded-sm" type="date" id="data_evento" name="data_evento">
+            <input type="hidden" id="idManif" name="idManif" value="valoreAggiuntivo">
+            <input type="hidden" id="action" name="action" value="PUT">
+            <input type="submit" value="Aggiorna" class="bg-blue-950 text-white font-semibold rounded-full px-8 py-2 mt-6 hover:bg-blue-800">
+            </form>
+            </div>
+
+<script>
+    const idManif=document.getElementById('idManif');
+    var urlParams = new URLSearchParams(window.location.search);
+    var datoRicevuto = urlParams.get('dato'); //riceve l'id manif dall'area Privata
+    idManif.value=datoRicevuto;
+    console.log(datoRicevuto);
+    
+fetch(`gestioneManifestazione.php?id=${datoRicevuto}`,{
+    method:'GET'
+}).then(response => response.json())
+.then(data => {
+    console.log(data);
+    document.getElementById("titolo").value=data[0]["titoloManif"];
+    document.getElementById("descrizione").value=data[0]["descrizione"];
+    document.getElementById("luogo").value=data[0]["luogo"];
+    document.getElementById("data_evento").value=data[0]["dataInizio"];
+    
+});
+</script>
+</body>
+
+</html>
